@@ -1,0 +1,66 @@
+<div class="container py-md-5 container--narrow">
+  <form
+    action="/create-post"
+    method="POST"
+    [formGroup]="createPostForm"
+    (ngSubmit)="createPost()"
+  >
+    <div class="form-group">
+      <label for="post-title" class="text-muted mb-1"
+        ><small>Title</small></label
+      >
+      <input
+        required
+        name="title"
+        id="post-title"
+        class="form-control form-control-lg form-control-title"
+        type="text"
+        placeholder=""
+        autocomplete="off"
+        formControlName="title"
+        [ngClass]="{ 'is-invalid': submitted && c.title.errors }"
+      />
+      <div
+        *ngIf="c.title.touched && c.title.errors"
+        class="alert alert-danger text-center"
+        data-toggle="tooltip"
+        data-placement="bottom"
+      >
+        <small>
+          <div *ngIf="c.title.errors.required">Title is required</div>
+        </small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="post-body" class="text-muted mb-1"
+        ><small>Body Content</small></label
+      >
+      <textarea
+        required
+        name="body"
+        id="post-body"
+        class="body-content tall-textarea form-control"
+        type="text"
+        formControlName="body"
+        [ngClass]="{ 'is-invalid': submitted && c.body.errors }"
+      ></textarea>
+      <div
+        *ngIf="c.body.touched && c.body.errors"
+        class="alert alert-danger text-center"
+        data-toggle="tooltip"
+        data-placement="bottom"
+      >
+        <small>
+          <div *ngIf="c.body.errors.required">Body Content is required</div>
+        </small>
+      </div>
+    </div>
+
+    <input type="hidden" name="_csrf" value="" />
+
+    <button class="btn btn-primary" [disabled]="!createPostForm.valid">
+      Save New Post
+    </button>
+  </form>
+</div>
